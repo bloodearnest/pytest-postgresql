@@ -187,11 +187,13 @@ def postgresql_proc(
         postgresql_ctl = executable or config['exec']
         # check if that executable exists, as it's no on system PATH
         # only replace if executable isn't passed manually
+        print(postgresql_ctl)
         if not os.path.exists(postgresql_ctl) and executable is None:
             pg_bindir = subprocess.check_output(
                 ['pg_config', '--bindir'], universal_newlines=True
             ).strip()
             postgresql_ctl = os.path.join(pg_bindir, 'pg_ctl')
+            print(postgresql_ctl)
 
         pg_host = host or config['host']
         pg_port = get_port(port) or get_port(config['port'])
